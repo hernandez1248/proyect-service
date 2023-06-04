@@ -13,9 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.City.belongsTo(models.State, 
         {
-          as: 'Estado',
+          as: 'state',
           foreignKey: 'stateId'
         });
+
+        models.City.hasMany(models.Locality,
+          {
+            as: "localities",
+          })
     }
   }
   City.init({

@@ -21,7 +21,7 @@ const stateList = async (req, res) => {
   try {
       // leeer los estados
       const state = await db.State.findAll({
-        include:['Municipios'],
+        include:['cities'],
       });  
 
       return res.json(state);
@@ -40,7 +40,7 @@ const stateList = async (req, res) => {
 const addState = async (req, res) => {
   try {
     console.log(req.body);
-    //leer los productos
+    //leer los estados
     const state = await db.State.create({...req.body});
     res.json({
       state,
