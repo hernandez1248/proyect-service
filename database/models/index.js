@@ -18,12 +18,13 @@ if (config.use_env_variable) {
 
 import state from './state';
 import city from './city';
+import locality from './locality';
 import customer from './customer';
 import address from './address';
 
-
 db.State = state(sequelize, Sequelize.DataTypes);
 db.City = city(sequelize, Sequelize.DataTypes);
+db.Locality = locality(sequelize, Sequelize.DataTypes);
 db.Customer = customer(sequelize, Sequelize.DataTypes);
 db.Address = address(sequelize, Sequelize.DataTypes);
 
