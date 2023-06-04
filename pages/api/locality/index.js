@@ -5,26 +5,26 @@ import db from "@/database/models"
 export default function handler(req, res) {
   switch(req.method){
     case 'GET':
-      return cityList(req, res);
+      return localityList(req, res);
     case 'POST':
-      return addCity(req, res);
+      return addLocality(req, res);
     case 'PUT':
-      return updateCity (req, res);
+      return updateLocality (req, res);
     case 'DELETE': 
-      return deleteCity(req, res);
+      return deleteLocality(req, res);
     default:
       res.status(400).json({error: true, message: 'Petición errónea'});
   }
 }
 
-const cityList = async (req, res) => {
+const localityList = async (req, res) => {
   try {
-      // leeer las ciudades 
-      const city = await db.City.findAll({
-        include: ['localities'],
+      // leeer las localidades
+      const locality = await db.Locality.findAll({
+        include: ['city'],
       });  
 
-      return res.json(city);
+      return res.json(locality);
   } catch (error) {
       return res.status(400).json(
           {
@@ -37,14 +37,14 @@ const cityList = async (req, res) => {
 
 
 
-const addCity = async (req, res) => {
+const addLocality = async (req, res) => {
   try {
     console.log(req.body);
-    //leer las ciudades
-    const city = await db.City.create({...req.body});
+    //leer las localidades
+    const locality = await db.Locality.create({...req.body});
     res.json({
-      city,
-      message: "El Municipio fue agregado con éxito"
+      locality,
+      message: "La localidad fue agregada con éxito"
     });
   }catch (error){
     console.log(error);
@@ -67,16 +67,16 @@ const addCity = async (req, res) => {
   }
 }
 
-const updateCity = async(req, res) => {
+const updateLocality = async(req, res) => {
   try {
     const {id} = req.query;
-    await db.City.update({...req.body}, {
+    await db.Locality.update({...req.body}, {
       where: {
         id:id
       }
     })
     res.json({
-      message: "El Municipio fue actualizado con éxito"
+      message: "La localidad fue actualizada con éxito"
     });
   } catch (error) {
     console.log(error);
@@ -99,16 +99,16 @@ const updateCity = async(req, res) => {
   }
 }
 
-const deleteCity = async(req, res) =>{
+const deleteLocality = async(req, res) =>{
   try {
     const {id} = req.query;
-    await db.City.destroy({
+    await db.Locality.destroy({
       where: {
         id: id
       }
     });
     res.json({
-      message: "El Municipio fue eliminado correctamente"
+      message: "La localidad fue eliminada correctamente"
     });
   }catch (error){
     console.log(error);
