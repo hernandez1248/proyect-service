@@ -31,6 +31,14 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      }, 
+      localityId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Localities',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

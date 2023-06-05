@@ -17,12 +17,35 @@ export default function handler(req, res) {
         // leer la categoria
         const customer = await db.Customer.findOne({
             where: {id: req.query.slug},
-            include:'address'
+            include:[
+                {
+                    model: db.Address,
+                    as: 'address',
+                    include:[
+                        {
+                            model: db.Locality,
+                            as: 'locality',
+                            include:[
+                                {
+                                    model: db.City,
+                                    as: 'city',
+                                    include:[
+                                        {
+                                            model: db.State,
+                                            as:'state'
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }); 
 
         if(!customer) {
             return res.status(404).json({
-                message: 'La ruta no existe',
+                message: 'El cliente no existe',
             });
         }
     
