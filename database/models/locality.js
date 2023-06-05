@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
           as: 'city',
           foreignKey: 'cityId'
         });
+
+        models.Locality.hasMany(models.Address,
+          {
+            as: "address",
+          })
     }
   }
   Locality.init({

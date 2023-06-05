@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'customerId',
         as: 'customer'
       })
+
+      models.Address.belongsTo(models.Locality, 
+        {
+          as: 'locality',
+          foreignKey: 'localityId'
+        });
     }
   }
   Address.init({
